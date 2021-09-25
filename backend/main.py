@@ -60,18 +60,31 @@ if __name__ == '__main__':
             'timeZone': 'GMT+2'
         },
         'end': {
-            'dateTime': convert_to_RFC_datetime(2020, 11, 1, 14 + hour_adjustment, 30),
+            'dateTime': convert_to_RFC_datetime(2021, 11, 1, 14 + hour_adjustment, 30),
             'timeZone': 'GMT+2'
         },
         'summary': 'Finish Q3 report',
-        'description' : 'lalala',
+        'description': 'lalala',
         'colorId': 5,
         'status': 'confirmed',
         'transparency': 'opaque',
         'visibility': 'private',
-        'location': 'Zurich, Zurich'
+        'location': 'Zurich, Zurich',
+        'recurrence': None
     }
 
+
+    maxAttendees = 5
+    sendNotification = True
+    sendUpdate = 'none'
+    supportsAttachments = True
+    response = service.events().insert(
+        calendarId=myCalendar['id'],
+        maxAttendees=maxAttendees,
+        sendNotifications=sendNotification,
+        sendUpdates=sendUpdate,
+        body=event_request_body
+    ).execute()
+
+    pprint(response)
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
-
-

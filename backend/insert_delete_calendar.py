@@ -14,13 +14,11 @@ def calendarservice():
 
 def create_calendar(calendarname, service):
     response = service.calendarList().list().execute()
-    cal_exists = 0
-    for cal in response.get('items'):
-        if (cal['summary'] == calendarname):
-            cal_exists = 1
-    pprint(response.get('items'))
+    calendarItems = response.get('items')
+
+    myCalendar = filter(lambda x: calendarname in x['summary'], calendarItems)
     # pprint(response.get('items')[0])
-    if (cal_exists == 0):
+    if not list(myCalendar):
         print('Creating new calendar')
         request_body = {
             'summary': calendarname

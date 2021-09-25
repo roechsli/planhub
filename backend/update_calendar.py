@@ -3,7 +3,8 @@ def find_cal_summary(service, calendarname):
     calendarItems = response.get('items')
 
     myCalendar = filter(lambda x: calendarname in x['summary'], calendarItems)
-    myCalendar = next(myCalendar)
+    if myCalendar:
+        myCalendar = next(myCalendar)
     return myCalendar
 
 def update_calendar(service, calendar, summary, description, location):
