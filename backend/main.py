@@ -104,9 +104,9 @@ def filter_tasks(tasks: list):
         filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f) if task["start_time"] is not None else None
         filtered_task["start"]["timeZone"] = "GMT+2"
         # calculate end-time
-        duration_mins = task["duration"] * MINUTE_TIME_UNIT_MULTIPLIER[task["duration_unit"]]
+        filtered_task["duration_mins"] = task["duration"] * MINUTE_TIME_UNIT_MULTIPLIER[task["duration_unit"]]
         filtered_task["end"] = dict()
-        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=duration_mins) if task["start_time"] is not None and duration_mins is not None else None
+        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=filtered_task["duration_mins"]) if task["start_time"] is not None and filtered_task["duration_mins"] is not None else None
         filtered_task["end"]["timeZone"] = "GMT+2"
 
         filtered_task["summary"] = task["name"]
@@ -120,6 +120,11 @@ def filter_tasks(tasks: list):
 
         return_tasks.append(filtered_task)
     return return_tasks
+
+def get_user_name(user_id: str) -> str:
+    # query database for user_id
+    result = session.query(User).filter((User.id == user_id)).one()
+    return result.first_name + " " + result.last_name
 
 
 if __name__ == '__main__':
@@ -159,5 +164,7 @@ if __name__ == '__main__':
         'recurrence': None
     }
     create_event(service, myCalendar, event_request_body)
+
+    print(get_user_name("1"))
 
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
