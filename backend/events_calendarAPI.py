@@ -11,3 +11,5 @@ def create_event(service, calendar, event_req_body):
         body=event_req_body
     ).execute()
 
+def tasklist_calendar_scheduler(dictionary_list, usr_id):
+    pass
