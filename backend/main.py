@@ -117,6 +117,11 @@ def filter_tasks(tasks: list):
         return_tasks.append(filtered_task)
     return return_tasks
 
+def get_user_name(user_id: str) -> str:
+    # query database for user_id
+    result = session.query(User).filter((User.id == user_id)).one()
+    return result.first_name + " " + result.last_name
+
 
 if __name__ == '__main__':
     print('main')
@@ -153,5 +158,7 @@ if __name__ == '__main__':
         'recurrence': None
     }
     create_event(service, myCalendar, event_request_body)
+
+    print(get_user_name("1"))
 
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
