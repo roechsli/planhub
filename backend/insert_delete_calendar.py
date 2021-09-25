@@ -1,5 +1,5 @@
 from pprint import pprint
-from Google import Create_Service
+from Google import Create_Service, convert_to_RFC_datetime
 
 
 def calendarservice():
@@ -18,7 +18,7 @@ def create_calendar(calendarname, service):
     for cal in response.get('items'):
         if (cal['summary'] == calendarname):
             cal_exists = 1
-    # pprint(response.get('items'))
+    pprint(response.get('items'))
     # pprint(response.get('items')[0])
     if (cal_exists == 0):
         print('Creating new calendar')
