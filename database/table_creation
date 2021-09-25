@@ -22,8 +22,9 @@ location VARCHAR(50),
 priority MEDIUMINT,
 recurrence_id VARCHAR(20),
 milestone_id VARCHAR(20),
-start_time VARCHAR(50),
-guests VARCHAR(500)
+start_time DATETIME,
+guests VARCHAR(500),
+status VARCHAR(50)
 );
 
 CREATE TABLE settings (
