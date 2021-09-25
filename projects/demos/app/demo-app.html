@@ -11,17 +11,7 @@
   <div class="row fill-height">
     <div class="col-md-9 col-xl-10 fill-height scroll-y" mwlDraggableScrollContainer>
       <div class="card" *ngIf="firstDemoLoaded; else loading">
-        <div class="card-header">
-          <div class="row">
-            
-            <div class="col-md-6">
-              <div>
-                <img src="./assets/logo_small.png" alt="App logo">
-              </div>
-            </div>
-
-          </div>
-        </div>
+        
         <div >
           <ngb-tabset [destroyOnHide]="false">
             <ngb-tab>
@@ -32,11 +22,11 @@
                   </div>
                 <!-- </div> -->
               </ng-template>
-              <!-- <ng-template ngbTabContent>
+              <ng-template ngbTabContent>
                 <div class="spacer-top">
-                  <empty-component></empty-component>
+                  <company-component></company-component>
                 </div>
-              </ng-template> -->
+              </ng-template>
             </ngb-tab>
 
             <ngb-tab>
@@ -92,6 +82,17 @@
               <ng-template ngbTabContent>
                 <div class="spacer-top">
                   <empty-component></empty-component>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i class="fas fa-fw fa-info"></i> Profile
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="spacer-top">
+                  <profile-component></profile-component>
                 </div>
               </ng-template>
             </ngb-tab>

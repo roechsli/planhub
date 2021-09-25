@@ -16,6 +16,10 @@ import { TaskComponent } from './demo-modules/tasks/component';
 import { TaskModule } from './demo-modules/tasks/module';
 import { EmptyComponent } from './demo-modules/empty-component/component';
 import { EmptyModule } from './demo-modules/empty-component/module';
+import { CompanyComponent } from './demo-modules/company-home/component';
+import { CompanyModule } from './demo-modules/company-home/module';
+import { ProfileComponent } from './demo-modules/profile/component';
+import { ProfileModule } from './demo-modules/profile/module';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -37,6 +41,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     DefaultDemoModule,
     TaskModule,
     EmptyModule,
+    CompanyModule,
+    ProfileModule,
     RouterModule.forRoot(
       [
         {
