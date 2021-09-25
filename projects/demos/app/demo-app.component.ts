@@ -3,7 +3,6 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { map, take, filter } from 'rxjs/operators';
 import StackBlitzSDK from '@stackblitz/sdk';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { sources as demoUtilsSources } from './demo-modules/demo-utils/sources';
 import { Subject } from 'rxjs';
 
 interface Source {
@@ -152,98 +151,15 @@ export class DemoAppComponent implements OnInit {
     );
   }
 
-  editInStackblitz(demo: Demo): void {
-    const files: {
-      [path: string]: string;
-    } = {
-      'index.html': `
-<link href="https://unpkg.com/bootstrap-css-only@${dependencyVersions.bootstrap}/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://unpkg.com/@fortawesome/fontawesome-free@${dependencyVersions.fontAwesome}/css/all.css" rel="stylesheet">
-<link href="https://unpkg.com/angular-calendar@${dependencyVersions.angularCalendar}/css/angular-calendar.css" rel="stylesheet">
-<link href="https://unpkg.com/flatpickr@${dependencyVersions.flatpickr}/dist/flatpickr.css" rel="stylesheet">
-<mwl-demo-component>Loading...</mwl-demo-component>
-`.trim(),
-      'main.ts': `
-import 'core-js/es6/reflect';
-import 'core-js/es7/reflect';
-import 'zone.js/dist/zone';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { DemoModule } from './demo/module';
-import { DemoComponent } from './demo/component';
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    DemoModule
-  ],
-  bootstrap: [DemoComponent]
-})
-export class BootstrapModule {}
-
-platformBrowserDynamic().bootstrapModule(BootstrapModule).then(ref => {
-  // Ensure Angular destroys itself on hot reloads.
-  if (window['ngRef']) {
-    window['ngRef'].destroy();
-  }
-  window['ngRef'] = ref;
-
-  // Otherwise, log the boot error
-}).catch(err => console.error(err));
-`.trim(),
-    };
-
-    demoUtilsSources.forEach((source) => {
-      files[`demo-utils/${source.filename}`] = source.contents.raw.default;
-    });
-
-    demo.sources.forEach((source) => {
-      files[`demo/${source.filename}`] = source.contents.raw;
-    });
-
-    StackBlitzSDK.openProject(
-      {
-        title: 'Angular Calendar Demo',
-        description: demo.label,
-        template: 'angular-cli',
-        tags: ['angular-calendar'],
-        files,
-        dependencies: {
-          '@angular/core': dependencyVersions.angular,
-          '@angular/common': dependencyVersions.angular,
-          '@angular/compiler': dependencyVersions.angular,
-          '@angular/platform-browser': dependencyVersions.angular,
-          '@angular/platform-browser-dynamic': dependencyVersions.angular,
-          '@angular/router': dependencyVersions.angular,
-          '@angular/forms': dependencyVersions.angular,
-          '@angular/animations': dependencyVersions.angular,
-          rxjs: dependencyVersions.rxjs,
-          'zone.js': dependencyVersions.zoneJs,
-          'angular-draggable-droppable': `^${dependencyVersions.angularDraggableDroppable}`,
-          'angular-resizable-element': `^${dependencyVersions.angularResizableElement}`,
-          'date-fns': dependencyVersions.dateFns,
-          'angular-calendar': dependencyVersions.angularCalendar,
-          '@ng-bootstrap/ng-bootstrap': '5.0.0', // pinned due to issue with stackblitz generation
-          rrule: dependencyVersions.rrule,
-          'calendar-utils': dependencyVersions.calendarUtils,
-          flatpickr: dependencyVersions.flatpickr,
-          'angularx-flatpickr': dependencyVersions.angularxFlatpickr,
-          'core-js': '2',
-        },
-      },
-      {
-        openFile: 'demo/component.ts',
-      }
-    );
+  exportAsLink(demo: Demo): void {
+    // TODO
+    console.log("this feature is not implemented yet")
   }
 
-  copied() {
-    this.copied$.next(true);
-    setTimeout(() => {
-      this.copied$.next(false);
-    }, 1000);
+  syncToGoogle(demo: Demo): void {
+    // TODO
+    console.log("this feature is not implemented yet")
   }
+
+  
 }

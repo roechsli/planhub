@@ -12,6 +12,10 @@ import { DragAndDropModule } from 'angular-draggable-droppable';
 import { DemoAppComponent } from './demo-app.component';
 import { DemoComponent as DefaultDemoComponent } from './demo-modules/planhub/component';
 import { DemoModule as DefaultDemoModule } from './demo-modules/planhub/module';
+import { TaskComponent } from './demo-modules/tasks/component';
+import { TaskModule } from './demo-modules/tasks/module';
+import { MilestoneComponent } from './demo-modules/milestones/component';
+import { MilestoneModule } from './demo-modules/milestones/module';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -31,6 +35,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     }),
     ClipboardModule,
     DefaultDemoModule,
+    TaskModule,
+    MilestoneModule,
     RouterModule.forRoot(
       [
         {
@@ -38,6 +44,20 @@ import { ClipboardModule } from 'ngx-clipboard';
           component: DefaultDemoComponent,
           data: {
             label: 'Planhub App',
+          },
+        },
+        {
+          path: 'tasks',
+          component: TaskComponent,
+          data: {
+            label: 'Tasks',
+          },
+        },
+        {
+          path: 'milestones',
+          component: MilestoneComponent,
+          data: {
+            label: 'Milestones',
           },
         },
         {

@@ -54,7 +54,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattlewis92/angular-calendar.git"
+    "url": "git+https://github.com/roechsli/planhub.git"
   },
   "keywords": [
     "angular",
@@ -63,12 +63,12 @@
     "calendar",
     "schematics"
   ],
-  "author": "Matt Lewis",
+  "author": "Oechslin Roman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattlewis92/angular-calendar/issues"
+    "url": "https://github.com/roechsli/planhub/issues"
   },
-  "homepage": "https://github.com/mattlewis92/angular-calendar#readme",
+  "homepage": "https://github.com/roechsli/planhub#readme",
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.12",
     "@angular-devkit/build-ng-packagr": "^0.901.12",
@@ -167,11 +167,5 @@
   "sideEffects": [
     "*.css",
     "*.scss"
-  ],
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e",
-      "pre-commit": "pretty-quick --staged"
-    }
-  }
+  ]
 }

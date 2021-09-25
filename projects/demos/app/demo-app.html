@@ -6,31 +6,102 @@
     </div>
   </div>
 </ng-template>
+
 <div class="container-fluid">
   <div class="row fill-height">
     <div class="col-md-9 col-xl-10 fill-height scroll-y" mwlDraggableScrollContainer>
-      <div class="spacer-top">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- 
-<div class="container-fluid">
-  <div class="row fill-height">
-    <div
-      class="col-md-9 col-xl-10 fill-height scroll-y"
-      mwlDraggableScrollContainer
-    >
+      <div class="card" *ngIf="firstDemoLoaded; else loading">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-6">
+              <h3>{{ activeDemo.label }}</h3>
+            </div>
+
+          </div>
+        </div>
+        <div class="card-body">
           <ngb-tabset [destroyOnHide]="false">
             <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i class="fas fa-fw fa-laptop"></i> Calendar
+              </ng-template>
               <ng-template ngbTabContent>
-                <div class="spacer-top"><router-outlet></router-outlet></div>
+                <div class="spacer-top">
+                  <router-outlet></router-outlet>
+                </div>
               </ng-template>
             </ngb-tab>
 
-            
+
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i class="fas fa-fw fa-tasks"></i> Tasks
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="spacer-top">
+                  <tasks-component></tasks-component>
+                </div>
+              </ng-template>
+            </ngb-tab>
+
+
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i class="fas fa-fw fa-history"></i> Milestones
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="spacer-top">
+                  <milestones-component></milestones-component>
+                </div>
+              </ng-template>
+            </ngb-tab>
+
           </ngb-tabset>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-xl-2 fill-height sidebar-nav scroll-y">
+      <input type="search" class="form-control" placeholder="Search demos..." [(ngModel)]="searchText"
+        (ngModelChange)="updateFilteredDemos()" />
+      <ul class="list-unstyled spacer-top">
+        <li *ngFor="let demo of filteredDemos">
+          <a [routerLink]="[demo.path]" [class.active]="activeDemo?.path === demo.path">
+            {{ demo.label }}
+          </a>
+        </li>
+      </ul>
+      <em *ngIf="filteredDemos.length === 0">No matching demos found</em>
+
+      <div class="action_buttons">
+
+
+        <div style="display: flex;">
+
+          <div class="align-left">
+            <p>Google Cloud</p>
+          </div>
+          <div class="align-right">
+            <button class="btn btn-info float-right" (click)="syncToGoogle(activeDemo)">
+              <i class="fas fa-sync"></i> Sync
+            </button>
+          </div>
+        </div>
+
+        <div style="display: flex;">
+
+          <div class="align-left">
+            <p>Export Calendar as Link</p>
+          </div>
+          <div class="align-right">
+
+            <button class="btn btn-info float-right" (click)="exportAsLink(activeDemo)">
+              <i class="fas fa-share"></i> Share
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-</div> -->
+</div>
