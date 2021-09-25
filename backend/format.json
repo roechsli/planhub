@@ -1,0 +1,12 @@
+[{
+        "start": {
+            "dateTime": "2021/09/25 T19:00"
+        },
+        "duration_mins":  120,
+        "summary": "Finish Q3 report",
+        "description": "lalala",
+      	"visibility": "private",
+        "priority": 2,
+        "location": "home",
+        "recurrence": null
+    }]

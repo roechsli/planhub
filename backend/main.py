@@ -7,6 +7,7 @@ from Google import Create_Service, convert_to_RFC_datetime
 from insert_delete_calendar import calendarservice, create_calendar, delete_calendar
 from change_calendar_color import get_color_profiles, change_color_profile
 from update_calendar import find_cal_summary, update_calendar
+from events_calendarAPI import create_event
 
 # define global google constants
 service = calendarservice()
@@ -85,8 +86,6 @@ if __name__ == '__main__':
     """
     Create an event
     """
-    colors = service.colors().get().execute()
-    pprint(colors)
 
     hour_adjustment = 2
     event_request_body = {
@@ -107,19 +106,6 @@ if __name__ == '__main__':
         'location': 'Zurich, Zurich',
         'recurrence': None
     }
+    create_event(service, myCalendar, event_request_body)
 
-
-    maxAttendees = 5
-    sendNotification = True
-    sendUpdate = 'none'
-    supportsAttachments = True
-    response = service.events().insert(
-        calendarId=myCalendar['id'],
-        maxAttendees=maxAttendees,
-        sendNotifications=sendNotification,
-        sendUpdates=sendUpdate,
-        body=event_request_body
-    ).execute()
-
-    pprint(response)
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
