@@ -1,3 +1,4 @@
+
 from flask import Flask
 from pprint import pprint
 import json
@@ -10,10 +11,35 @@ from update_calendar import find_cal_summary, update_calendar
 # define global google constants
 service = calendarservice()
 
-# define global flask constants
+import json
+import time
+
+from flask import Flask, request, redirect, url_for
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+from dto.User import User
+from credentials import MYSQL_CONNECTION_STRING
+
+
+
 app = Flask(__name__)
 
+
 print('all')
+
+engine = create_engine(MYSQL_CONNECTION_STRING)
+metadata = MetaData()
+users_table = Table('users', metadata,
+     Column('id', Integer, primary_key=True),
+     Column('name', String),
+)
+metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
+
 
 # define global constants
 PORT = 1337
@@ -30,14 +56,23 @@ def sync_to_google_calendar(user_id: str):
     return "<p>I synced to google calendar for </p>" + user_id
 
 
+@app.route("/users/tasks/<string:task_id>", methods=["POST", "GET"])
+def get_or_add_new_task(user_id: str, task_id: str):
+    if request.method == 'POST':
+        # create or update task
+        user = request.form['nm']
+        return redirect(url_for('success', name=user))
+    else:
+        # get task
+        user = request.args.get('nm')
+        return redirect(url_for('success', name=user))
+
+
 @app.route("/users/<string:user_id>")
 def get_user(user_id: str):
     # query database for user_id
-    database_fetch = {
-        "name": "database.user_id.name",
-        "age": 45
-    }
-    return json.dumps(database_fetch)
+    result = session.query(User).all()
+    return json.dumps([item.json() for item in result])
 
 
 if __name__ == '__main__':

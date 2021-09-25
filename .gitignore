@@ -8,6 +8,7 @@
 
 # ignore google credential file
 /backend/client_secret_GoogleCloudDemo.json
+/backend/credentials.py
 
 
 # compiled output

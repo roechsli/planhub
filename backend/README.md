@@ -7,6 +7,8 @@
 `cd backend`
 
 `pip install -r requirements.txt`
+`pip install greenlet`
+`pip install mysqlclient`
 
 ### Angular
 
