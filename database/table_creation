@@ -22,7 +22,8 @@ location VARCHAR(50),
 priority MEDIUMINT,
 recurrence_id VARCHAR(20),
 milestone_id VARCHAR(20),
-start_time VARCHAR(50)
+start_time VARCHAR(50),
+guests VARCHAR(500)
 );
 
 CREATE TABLE settings (
@@ -63,7 +64,7 @@ INSERT INTO tasks(
     visibility, location, priority
     )
 VALUES ("1","1","Prepare Presentation","Create presentation and send to executives.",
-    2,"hours","company_private","prefer_home", 2
+    2,"hours","company_private","preferably_home", 2
 );
 INSERT INTO tasks(
     id, user_id, name, description, duration, duration_unit,
@@ -121,6 +122,6 @@ INSERT INTO settings(
     id, user_id, days_at_home, days_at_work, commute_time, commute_time_unit,
     start_time, end_time, work_time, work_time_unit, work_percentage
     )
-VALUES ("1","2","","",0,"hours",
+VALUES ("2","2","","",0,"hours",
     "07:00","20:00","45","hours","100"
 );
