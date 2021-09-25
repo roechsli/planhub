@@ -1,4 +1,5 @@
 from flask import Flask
+import json
 
 
 app = Flask(__name__)
@@ -14,8 +15,18 @@ def hello_world():
 
 
 @app.route("/users/<string:user_id>/sync")
-def sync_to_google_calendar():
-    return "<p>I synced to google calendar</p>"
+def sync_to_google_calendar(user_id:str):
+    return "<p>I synced to google calendar for </p>" + user_id
+
+
+@app.route("/users/<string:user_id>")
+def get_user(user_id:str):
+    # query database for user_id
+    database_fetch = {
+        "name": "database.user_id.name",
+        "age": 45
+    }
+    return json.dumps(database_fetch)
 
 
 
