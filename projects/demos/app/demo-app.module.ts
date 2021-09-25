@@ -14,8 +14,8 @@ import { DemoComponent as DefaultDemoComponent } from './demo-modules/planhub/co
 import { DemoModule as DefaultDemoModule } from './demo-modules/planhub/module';
 import { TaskComponent } from './demo-modules/tasks/component';
 import { TaskModule } from './demo-modules/tasks/module';
-import { MilestoneComponent } from './demo-modules/milestones/component';
-import { MilestoneModule } from './demo-modules/milestones/module';
+import { EmptyComponent } from './demo-modules/empty-component/component';
+import { EmptyModule } from './demo-modules/empty-component/module';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -36,7 +36,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     ClipboardModule,
     DefaultDemoModule,
     TaskModule,
-    MilestoneModule,
+    EmptyModule,
     RouterModule.forRoot(
       [
         {
@@ -55,7 +55,7 @@ import { ClipboardModule } from 'ngx-clipboard';
         },
         {
           path: 'milestones',
-          component: MilestoneComponent,
+          component: EmptyComponent,
           data: {
             label: 'Milestones',
           },

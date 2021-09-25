@@ -5,7 +5,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { MilestoneComponent } from './component';
+import { EmptyComponent } from './component';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { MilestoneComponent } from './component';
       useFactory: adapterFactory,
     }),
   ],
-  declarations: [MilestoneComponent],
-  exports: [MilestoneComponent],
+  declarations: [EmptyComponent],
+  exports: [EmptyComponent],
 })
-export class MilestoneModule {}
+export class EmptyModule {}

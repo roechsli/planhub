@@ -2,13 +2,17 @@ from flask import Flask
 from pprint import pprint
 import json
 from Google import Create_Service, convert_to_RFC_datetime
+
 from insert_delete_calendar import calendarservice, create_calendar, delete_calendar
 from change_calendar_color import get_color_profiles, change_color_profile
 from update_calendar import find_cal_summary, update_calendar
 
+# define global google constants
 service = calendarservice()
 
+# define global flask constants
 app = Flask(__name__)
+
 print('all')
 
 # define global constants
