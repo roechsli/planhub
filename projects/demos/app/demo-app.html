@@ -13,6 +13,7 @@
       <div class="card" *ngIf="firstDemoLoaded; else loading">
         <div class="card-header">
           <div class="row">
+            
             <div class="col-md-6">
               <div>
                 <img src="./assets/logo_small.png" alt="App logo">
@@ -21,8 +22,23 @@
 
           </div>
         </div>
-        <div class="card-body">
+        <div >
           <ngb-tabset [destroyOnHide]="false">
+            <ngb-tab>
+              <ng-template ngbTabTitle >
+                <!-- <div class="col-md-2"> -->
+                  <div>
+                    <img src="./assets/logo_smaller.png" alt="App logo">
+                  </div>
+                <!-- </div> -->
+              </ng-template>
+              <!-- <ng-template ngbTabContent>
+                <div class="spacer-top">
+                  <empty-component></empty-component>
+                </div>
+              </ng-template> -->
+            </ngb-tab>
+
             <ngb-tab>
               <ng-template ngbTabTitle>
                 <i class="fas fa-fw fa-calendar"></i> Calendar

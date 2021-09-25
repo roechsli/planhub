@@ -159,6 +159,4 @@ if __name__ == '__main__':
     }
     create_event(service, myCalendar, event_request_body)
 
-    print(get_user_name("1"))
-
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
