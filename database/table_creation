@@ -63,53 +63,101 @@ INSERT INTO tasks(
     id, user_id, name, description, duration, duration_unit,
     visibility, location, priority
     )
-VALUES ("1","1","Prepare Presentation","Create presentation and send to executives.",
-    2,"hours","company_private","preferably_home", 2
+VALUES ("1","1","Commute","Drive to the office",
+    1,"hours","company_private","dont_care", 2
 );
 INSERT INTO tasks(
     id, user_id, name, description, duration, duration_unit,
     visibility, location, priority
     )
-VALUES ("2","1","Pick up child","Pick up child from kindergarten.",
+VALUES ("2","1","Prepare All-Hands","Prepare All-Hands meeting agenda.",
+    0.5,"hours","private","office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("3","1","Counselling","Meet counselee for career feedback.",
+    1,"hours","company_private","preferably_office", 3
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("4","1","All-Hands meeting","Daily All-Hands meeting",
+    1,"hours","company_private","office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("5","1","Commute home","Drive back home.",
+    1,"hours","public","dont_care", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("6","1","Lunch","We all need to eat.",
+    1,"hours","company_private","dont_care", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("7","1","Q4 Budget","Draft Budget for Q4.",
+    3,"hours","company_private","preferably_office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("8","1","Pickup kids","Get kids from kindergarten.",
+    1,"hours","private","home", 1
+);
+/////////////////////////////////////////////////////
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("9","2","Counselling","Exchange for career feedback.",
+    1,"hours","company_private","preferably_office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("10","2","All-Hands meeting","Daily All-Hands meeting.",
+    1,"hours","company_private","office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("11","2","Slide deck","Draft slide deck for proposal.",
+    3.5,"hours","company_private","preferably_office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("12","2","Lunch","Stay hungry.",
+    1,"hours","company_private","preferably_office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("13","2","Commute","Bike to gym.",
+    0.5,"hours","company_private","preferably_office", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("14","2","Climbing","Top the pink one in the corner.",
     2,"hours","private","home", 1
 );
-INSERT INTO tasks(
-    id, user_id, name, description, duration, duration_unit,
-    visibility, location, priority
-    )
-VALUES ("3","2","Counselling","Meet counselee for career feedback.",
-    0.5,"hours","company_private","preferably_office", 3
-);
-INSERT INTO tasks(
-    id, user_id, name, description, duration, duration_unit,
-    visibility, location, priority
-    )
-VALUES ("4","2","Prepare all hands call","Prepare slides and review all hands call material.",
-    1,"hours","company_private","preferably_home", 1
-);
-INSERT INTO tasks(
-    id, user_id, name, description, duration, duration_unit,
-    visibility, location, priority
-    )
-VALUES ("5","2","Public Tech Talk","Talk about a busy manager.",
-    2,"hours","public","dont_care", 1
-);
-INSERT INTO tasks(
-    id, user_id, name, description, duration, duration_unit,
-    visibility, location, priority
-    )
-VALUES ("6","1","All hands call","All hands call.",
-    1,"hours","company_private","preferably_home", 1
-);
-INSERT INTO tasks(
-    id, user_id, name, description, duration, duration_unit,
-    visibility, location, priority
-    )
-VALUES ("7","2","All hands call","All hands call.",
-    1,"hours","company_private","preferably_home", 1
-);
-
-
 
 INSERT INTO settings(
     id, user_id, days_at_home, days_at_work, commute_time, commute_time_unit,
