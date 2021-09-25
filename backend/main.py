@@ -100,9 +100,9 @@ def filter_tasks(tasks: list):
         filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f) if task["start_time"] is not None else None
         filtered_task["start"]["timeZone"] = "GMT+2"
         # calculate end-time
-        duration_mins = task["duration"] * MINUTE_TIME_UNIT_MULTIPLIER[task["duration_unit"]]
+        filtered_task["duration_mins"] = task["duration"] * MINUTE_TIME_UNIT_MULTIPLIER[task["duration_unit"]]
         filtered_task["end"] = dict()
-        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=duration_mins) if task["start_time"] is not None and duration_mins is not None else None
+        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=filtered_task["duration_mins"]) if task["start_time"] is not None and filtered_task["duration_mins"] is not None else None
         filtered_task["end"]["timeZone"] = "GMT+2"
 
         filtered_task["summary"] = task["name"]
