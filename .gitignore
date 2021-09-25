@@ -2,9 +2,11 @@
 
 
 */__pycache__
+*/*/__pycache__
 /backend/token.txt
 /backend/token*files/*
 /backend/client_secret_GoogleCloudDemo.json
+
 
 # ignore google credential file
 /backend/client_secret_GoogleCloudDemo.json
