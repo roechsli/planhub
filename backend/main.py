@@ -2,23 +2,27 @@ import json
 import time
 
 from flask import Flask, request, redirect, url_for
-from sqlalchemy import create_engine
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from backend.dto.User import User
+from dto.User import User
+from credentials import MYSQL_CONNECTION_STRING
+
 
 app = Flask(__name__)
-engine = create_engine('mysql://root:passwort123@localhost:3306/planhub')
 
+engine = create_engine(MYSQL_CONNECTION_STRING)
+metadata = MetaData()
+users_table = Table('users', metadata,
+     Column('id', Integer, primary_key=True),
+     Column('name', String),
+)
+metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-# time.sleep(1)
-# Session.configure(bind=engine)
 
-# Session = sessionmaker()
-# time.sleep(5)
-# Session.configure(bind=engine)
-# session = Session()
 
 # define global constants
 PORT = 1337
@@ -50,17 +54,8 @@ def get_or_add_new_task(user_id: str, task_id: str):
 @app.route("/users/<string:user_id>")
 def get_user(user_id: str):
     # query database for user_id
-    # q = session.query(User, User.id, User.email)
-    # database_fetch = session.execute(q)
-    print("i am here")
-    users = session.query(User)
-    print("i am in step 2")
-    # session.query(User).filter_by(name='ed').first()
-    print(users)
-    database_fetch = session.query(User).filter_by(id='user_id').first()
-    print(database_fetch)
-    # return json.dumps(database_fetch)
-    return "database_fetch"
+    result = session.query(User).all()
+    return json.dumps([item.json() for item in result])
 
 
 if __name__ == '__main__':
