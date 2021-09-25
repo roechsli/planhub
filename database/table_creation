@@ -28,14 +28,15 @@ start_time VARCHAR(50)
 CREATE TABLE settings (
 id VARCHAR(20), 
 user_id VARCHAR(20),
-days_at_home MEDIUMINT,
-days_at_work MEDIUMINT,
+days_at_home VARCHAR(50),
+days_at_work VARCHAR(50),
 commute_time MEDIUMINT, 
 commute_time_unit VARCHAR(20), 
 start_time VARCHAR(20), 
 end_time VARCHAR(20), 
 work_time MEDIUMINT,
 work_time_unit VARCHAR(20), 
+work_percentage MEDIUMINT
 );
 
 CREATE TABLE recurrences (
@@ -51,4 +52,75 @@ datetime DATETIME
 
 
 -- Insertion of entries
+INSERT INTO users(id,first_name,last_name,email)
+VALUES ("1","Alice","Londerwand","alice@executive.com");
+INSERT INTO users(id,first_name,last_name,email)
+VALUES ("2","Charlie","Hatbot","c.hatbot@mindlessness.com");
 
+
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("1","1","Prepare Presentation","Create presentation and send to executives.",
+    2,"hours","company_private","prefer_home", 2
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("2","1","Pick up child","Pick up child from kindergarten.",
+    2,"hours","private","home", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("3","2","Counselling","Meet counselee for career feedback.",
+    0.5,"hours","company_private","preferably_office", 3
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("4","2","Prepare all hands call","Prepare slides and review all hands call material.",
+    1,"hours","company_private","preferably_home", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("5","2","Public Tech Talk","Talk about a busy manager.",
+    2,"hours","public","dont_care", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("6","1","All hands call","All hands call.",
+    1,"hours","company_private","preferably_home", 1
+);
+INSERT INTO tasks(
+    id, user_id, name, description, duration, duration_unit,
+    visibility, location, priority
+    )
+VALUES ("7","2","All hands call","All hands call.",
+    1,"hours","company_private","preferably_home", 1
+);
+
+
+
+INSERT INTO settings(
+    id, user_id, days_at_home, days_at_work, commute_time, commute_time_unit,
+    start_time, end_time, work_time, work_time_unit, work_percentage
+    )
+VALUES ("1","1","FRI","MON,TUE",1,"hours",
+    "07:00","16:00","40","hours","80"
+);
+INSERT INTO settings(
+    id, user_id, days_at_home, days_at_work, commute_time, commute_time_unit,
+    start_time, end_time, work_time, work_time_unit, work_percentage
+    )
+VALUES ("1","2","","",0,"hours",
+    "07:00","20:00","45","hours","100"
+);
