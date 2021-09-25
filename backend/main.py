@@ -93,7 +93,7 @@ def filter_tasks(tasks: list):
     for task in tasks:
         filtered_task = {}
         filtered_task["start"] = {}
-        
+
         f = '%Y-%m-%d %H:%M:%S'
         filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f)
         # convert this to RFC datetime
@@ -110,7 +110,7 @@ def filter_tasks(tasks: list):
         filtered_task["location"] = task["location"]
         # TODO not implemented yet (join on recurrence table to get pattern)
         filtered_task["recurrence"] = None
-        
+
         return_tasks.append(filtered_task)
     return return_tasks
 
@@ -121,6 +121,10 @@ if __name__ == '__main__':
     get_color_profiles(service)
     myCalendar = find_cal_summary(service, 'PlanHubCalendar 2')
     update_calendar(service, myCalendar, 'PlanHubCalendar 2', 'Alices Calendar', 'Zurich')
+
+    file = get_user_tasks('1')
+    file_dict = json.loads(file)
+    print(file_dict)
 
     """
     Create an event
