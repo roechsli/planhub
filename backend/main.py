@@ -1,12 +1,14 @@
 from flask import Flask
 import json
+
 from insert_delete_calendar import calendarservice, create_calendar, delete_calendar
 
+# define global google constants
 service = calendarservice()
 create_calendar('PlanHubCalendar 2', service)
 
+# define global flask constants
 app = Flask(__name__)
-print("alls")
 
 # define global constants
 PORT = 1337
