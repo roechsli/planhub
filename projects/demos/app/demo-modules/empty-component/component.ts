@@ -39,12 +39,12 @@ const colors: any = {
 };
 
 @Component({
-  selector: 'milestones-component',
+  selector: 'empty-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['styles.css'],
   templateUrl: 'template.html',
 })
-export class MilestoneComponent {
+export class EmptyComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
