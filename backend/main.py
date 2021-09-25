@@ -1,5 +1,6 @@
 import json
 import datetime
+from datetime import timedelta
 
 from flask import Flask, request
 from sqlalchemy import create_engine, MetaData
@@ -93,15 +94,16 @@ def filter_tasks(tasks: list):
     for task in tasks:
         filtered_task = {}
         filtered_task["start"] = {}
-        
+        # convert this to datetime object
         f = '%Y-%m-%d %H:%M:%S'
-        filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f)
-        # convert this to RFC datetime
+        filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f) if task["start_time"] is not None else None
         filtered_task["start"]["timeZone"] = "GMT+2"
+        # calculate end-time
         duration_mins = task["duration"] * MINUTE_TIME_UNIT_MULTIPLIER[task["duration_unit"]]
         filtered_task["end"] = {}
-        filtered_task["end"]["dateTime"] = task["end_time"] if task["end_time"] is not None else task["start_time"] + duration_mins if task["start_time"] is not None else None
+        filtered_task["end"]["dateTime"] = datetime.datetime.strptime(task["end_time"], f) if task["end_time"] is not None else task["start_time"] + timedelta(minutes=duration_mins) if task["start_time"] is not None and duration_mins is not None else None
         filtered_task["end"]["timeZone"] = "GMT+2"
+        
         filtered_task["summary"] = task["name"]
         filtered_task["description"] = task["description"]
         # only allow google visibility settings
