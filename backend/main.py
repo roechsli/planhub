@@ -30,7 +30,7 @@ app = Flask(__name__)
 
 print('all')
 
-engine = create_engine(MYSQL_CONNECTION_STRING)
+engine = create_engine(MYSQL_CONNECTION_STRING, echo = True)
 metadata = MetaData()
 users_table = Table('users', metadata,
      Column('id', Integer, primary_key=True),
