@@ -1,5 +1,6 @@
 import json
 import datetime
+import logging
 from datetime import timedelta
 
 from flask import Flask, request
@@ -34,6 +35,9 @@ FLASK_DEBUG = True
 
 # define global google constants
 service = calendarservice()
+
+#Global logger
+logger = logging.getLogger(__name__)
 
 
 @app.route("/")
@@ -125,9 +129,11 @@ if __name__ == '__main__':
     myCalendar = find_cal_summary(service, 'PlanHubCalendar 2')
     update_calendar(service, myCalendar, 'PlanHubCalendar 2', 'Alices Calendar', 'Zurich')
 
-    file = get_user_tasks('1')
-    file_dict = json.loads(file)
-    print(file_dict)
+    file1 = get_user_tasks('1')
+    file_dict1 = json.loads(file1)
+
+    file2 = get_user_tasks('2')
+    file_dict2 = json.loads(file2)
 
     """
     Create an event
