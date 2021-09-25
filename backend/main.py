@@ -10,13 +10,7 @@ from sqlalchemy.orm import sessionmaker
 from dto.User import User
 from credentials import MYSQL_CONNECTION_STRING
 
-from insert_delete_calendar import calendarservice, create_calendar, delete_calendar
 
-# define global google constants
-service = calendarservice()
-create_calendar('PlanHubCalendar 2', service)
-
-# define global flask constants
 app = Flask(__name__)
 
 engine = create_engine(MYSQL_CONNECTION_STRING)
@@ -62,6 +56,7 @@ def get_user(user_id: str):
     # query database for user_id
     result = session.query(User).all()
     return json.dumps([item.json() for item in result])
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
