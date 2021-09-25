@@ -1,0 +1,54 @@
+CREATE DATABASE planhub;
+
+use planhub;
+
+-- Creation of all tables
+CREATE TABLE users (
+id VARCHAR(20), 
+first_name VARCHAR(30),
+last_name VARCHAR(30),
+email VARCHAR(50)
+);
+
+CREATE TABLE tasks (
+id VARCHAR(20), 
+user_id VARCHAR(20),
+name VARCHAR(30),
+description VARCHAR(500),
+duration MEDIUMINT,
+duration_unit VARCHAR(20),
+visibility VARCHAR(20),
+location VARCHAR(50),
+priority MEDIUMINT,
+recurrence_id VARCHAR(20),
+milestone_id VARCHAR(20),
+start_time VARCHAR(50)
+);
+
+CREATE TABLE settings (
+id VARCHAR(20), 
+user_id VARCHAR(20),
+days_at_home MEDIUMINT,
+days_at_work MEDIUMINT,
+commute_time MEDIUMINT, 
+commute_time_unit VARCHAR(20), 
+start_time VARCHAR(20), 
+end_time VARCHAR(20), 
+work_time MEDIUMINT,
+work_time_unit VARCHAR(20), 
+);
+
+CREATE TABLE recurrences (
+id VARCHAR(20), 
+pattern VARCHAR(50)
+);
+
+CREATE TABLE milestones (
+id VARCHAR(20), 
+description VARCHAR(50),
+datetime DATETIME
+);
+
+
+-- Insertion of entries
+
