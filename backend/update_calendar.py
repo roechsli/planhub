@@ -7,6 +7,7 @@ def find_cal_summary(service, calendarname):
         myCalendar = next(myCalendar)
     return myCalendar
 
+
 def update_calendar(service, calendar, summary, description, location):
     calendar['description'] = description
     calendar['location'] = location

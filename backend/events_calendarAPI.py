@@ -51,7 +51,7 @@ def tasklist_calendar_scheduler(dictionary_list, usr_name, service):
             start_time = convert_to_RFC_datetime(2021, 11, 1, starting_hours[idx] + hour_adjustment,
                                                  starting_minutes[idx])
             end_time = convert_to_RFC_datetime(2021, 11, 1, starting_hours[idx] + hour_adjustment + (
-                    starting_minutes[idx] + dicts['duration_mins']) // 60,
+                starting_minutes[idx] + dicts['duration_mins']) // 60,
                                                (starting_minutes[idx] + dicts['duration_mins']) % 60)
             event_request_body = {
                 'start': {

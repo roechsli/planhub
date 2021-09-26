@@ -18,12 +18,11 @@ from change_calendar_color import get_color_profiles, change_color_profile
 from update_calendar import find_cal_summary, update_calendar
 from events_calendarAPI import create_event, tasklist_calendar_scheduler
 
-
 # define Flask variables
 app = Flask(__name__)
 
 # define database variables
-engine = create_engine(MYSQL_CONNECTION_STRING, echo = True)
+engine = create_engine(MYSQL_CONNECTION_STRING, echo=True)
 metadata = MetaData()
 metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
@@ -36,7 +35,7 @@ FLASK_DEBUG = True
 # define global google constants
 service = calendarservice()
 
-#Global logger
+# Global logger
 logger = logging.getLogger(__name__)
 
 
@@ -105,18 +104,21 @@ def filter_tasks(tasks: list):
 
         # convert this to datetime object
         f = '%Y-%m-%d %H:%M:%S'
-        filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f) if task["start_time"] is not None else None
+        filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f) if task[
+                                                                                                      "start_time"] is not None else None
         filtered_task["start"]["timeZone"] = "GMT+2"
         # calculate end-time
         filtered_task["duration_mins"] = task["duration"] * MINUTE_TIME_UNIT_MULTIPLIER[task["duration_unit"]]
         filtered_task["end"] = dict()
-        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=filtered_task["duration_mins"]) if task["start_time"] is not None and filtered_task["duration_mins"] is not None else None
+        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=filtered_task["duration_mins"]) if \
+        task["start_time"] is not None and filtered_task["duration_mins"] is not None else None
         filtered_task["end"]["timeZone"] = "GMT+2"
 
         filtered_task["summary"] = task["name"]
         filtered_task["description"] = task["description"]
         # only allow google visibility settings
-        filtered_task["visibility"] = task["visibility"] if task["visibility"] in ["private", "default", "public"] else None
+        filtered_task["visibility"] = task["visibility"] if task["visibility"] in ["private", "default",
+                                                                                   "public"] else None
         filtered_task["priority"] = task["priority"]
         filtered_task["location"] = task["location"]
         # TODO not implemented yet (join on recurrence table to get pattern)
@@ -124,6 +126,7 @@ def filter_tasks(tasks: list):
 
         return_tasks.append(filtered_task)
     return return_tasks
+
 
 def get_user_name(user_id: str) -> str:
     # query database for user_id
@@ -139,7 +142,6 @@ if __name__ == '__main__':
 
     file2 = get_user_tasks('2')
     file_dict2 = json.loads(file2)
-
 
     tasklist_calendar_scheduler(file_dict1, get_user_name('1'), service)
     tasklist_calendar_scheduler(file_dict2, get_user_name('2'), service)
