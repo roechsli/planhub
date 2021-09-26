@@ -177,11 +177,8 @@ export class TaskComponent {
   constructor(private modal: NgbModal, private http: HttpClient) {}
 
   syncTasks(){
-    
-    alert("Tasks are synced to Google Calendar")
-    console.log("Send request to backend");
+    alert("Tasks are synced to Google Calendar");
     this.http.get("http://localhost:1337/users/2/sync").subscribe();
-    // this.http.get("https://reqres.in/api/users?page=2")
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
