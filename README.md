@@ -10,6 +10,17 @@ A smart meeting planning and organization tool to help navigate in a hybrid work
 
 This is based on the calendar component for Angular 6.0+ that can display events on a month, week or day view. The successor of [angular-bootstrap-calendar](https://github.com/mattlewis92/angular-bootstrap-calendar).
 
+<h2 align="center">What it looks like</h2>
+
+![Alt text](doc/calendar_view.png "Calendar View")
+
+![Alt text](doc/calendar_week_view.png "Calendar Week View")
+
+![Alt text](doc/tasks_view.png "Tasks View")
+
+![Alt text](doc/planner_view.png "Planner View Outlook")
+
+
 <h2 align="center">Set up</h2>
 
 ## Install dependencies
