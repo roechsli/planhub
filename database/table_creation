@@ -15,7 +15,7 @@ id VARCHAR(20),
 user_id VARCHAR(20),
 name VARCHAR(30),
 description VARCHAR(500),
-duration MEDIUMINT,
+duration NUMERIC,
 duration_unit VARCHAR(20),
 visibility VARCHAR(20),
 location VARCHAR(50),
@@ -32,13 +32,13 @@ id VARCHAR(20),
 user_id VARCHAR(20),
 days_at_home VARCHAR(50),
 days_at_work VARCHAR(50),
-commute_time MEDIUMINT,
+commute_time NUMERIC,
 commute_time_unit VARCHAR(20),
 start_time VARCHAR(20),
 end_time VARCHAR(20),
-work_time MEDIUMINT,
+work_time NUMERIC,
 work_time_unit VARCHAR(20),
-work_percentage MEDIUMINT
+work_percentage NUMERIC
 );
 
 CREATE TABLE recurrences (

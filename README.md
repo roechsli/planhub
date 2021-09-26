@@ -1,4 +1,4 @@
-<h1 align="center">angular 6.0+ calendar</h1>
+<h1 align="center">PlanHub - Hack Zürich</h1>
 
 <div align="center">
 
@@ -12,14 +12,6 @@
 </div>
 
 <h2 align="center">Demo</h2>
-
-<div align="center">
-
-https://mattlewis92.github.io/angular-calendar/
-
-</div>
-
-<h2 align="center">Sponsors</h2>
 
 <div align="center">
 <a href="https://github.com/sponsors/mattlewis92">Become a silver or gold sponsor<a> and get your logo on this README on Github with a link to your site.

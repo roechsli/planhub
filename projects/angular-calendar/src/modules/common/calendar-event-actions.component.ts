@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { CalendarEvent, EventAction } from 'calendar-utils';
+import { CalendarEvent, EventAction, Task } from 'calendar-utils';
 
 @Component({
   selector: 'mwl-calendar-event-actions',

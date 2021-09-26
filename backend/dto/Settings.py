@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, String, Float
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
@@ -10,13 +10,13 @@ class Settings(Base):
     user_id = Column(String)
     days_at_home = Column(String)
     days_at_work = Column(String)
-    commute_time = Column(Integer) 
+    commute_time = Column(Float) 
     commute_time_unit = Column(String) 
     start_time = Column(String) 
     end_time = Column(String) 
-    work_time = Column(Integer)
+    work_time = Column(Float)
     work_time_unit = Column(String) 
-    work_percentage = Column(Integer)
+    work_percentage = Column(Float)
 
     def __repr__(self):
         return "<Settings(id='%s', user_id='%s', days_at_home='%s', days_at_work='%s', commute_time='%s', commute_time_unit='%s', start_time='%s', end_time='%s', work_time='%s', work_time_unit='%s', work_percentage= %s')>" % (

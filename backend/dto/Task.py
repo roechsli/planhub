@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql.sqltypes import DateTime
 
@@ -12,7 +12,7 @@ class Task(Base):
     user_id = Column(String)
     name = Column(String)
     description = Column(String)
-    duration = Column(Integer)
+    duration = Column(Float)
     duration_unit = Column(String)
     visibility = Column(String)
     location = Column(String)

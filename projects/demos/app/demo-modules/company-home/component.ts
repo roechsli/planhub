@@ -22,8 +22,6 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
-import { Task } from 'calendar-utils';
-import { HttpClient } from '@angular/common/http';
 
 const colors: any = {
   red: {
@@ -41,12 +39,12 @@ const colors: any = {
 };
 
 @Component({
-  selector: 'tasks-component',
+  selector: 'company-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['styles.css'],
   templateUrl: 'template.html',
 })
-export class TaskComponent {
+export class CompanyComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -80,47 +78,11 @@ export class TaskComponent {
 
   refresh: Subject<any> = new Subject();
 
-  tasks: Task[] = [
-    {
-      name: "All Hands Meeting",
-      location: "Office",
-      duration: 60,
-      priority: 1,
-      status: false
-    },
-    {
-      name: "Counselling Call",
-      location: "-",
-      duration: 60,
-      priority: 2,
-      status: false
-    },
-    {
-      name: "Prepare slides",
-      location: "-",
-      duration: 120,
-      priority: 2,
-      status: false
-    },
-    {
-      name: "Lunch",
-      location: "Office",
-      duration: 60,
-      priority: 1,
-      status: false
-    }
-  ];
-
   events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
-      name: "All Hands Meeting",
-      location: "Office",
-      duration: 60,
-      priority: 1,
-      status: false,
       color: colors.red,
       actions: this.actions,
       allDay: true,
@@ -133,11 +95,6 @@ export class TaskComponent {
     {
       start: startOfDay(new Date()),
       title: 'An event with no end date',
-      name: "Counselling Call",
-      location: "-",
-      duration: 60,
-      priority: 2,
-      status: false,
       color: colors.yellow,
       actions: this.actions,
     },
@@ -145,11 +102,6 @@ export class TaskComponent {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
-      name: "Prepare slides",
-      location: "-",
-      duration: 120,
-      priority: 2,
-      status: false,
       color: colors.blue,
       allDay: true,
     },
@@ -157,11 +109,6 @@ export class TaskComponent {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
-      name: "Lunch",
-      location: "Office",
-      duration: 60,
-      priority: 1,
-      status: false,
       color: colors.yellow,
       actions: this.actions,
       resizable: {
@@ -174,15 +121,7 @@ export class TaskComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private http: HttpClient) {}
-
-  syncTasks(){
-    
-    alert("Tasks are synced to Google Calendar")
-    console.log("Send request to backend");
-    this.http.get("http://localhost:1337/users/2/sync").subscribe();
-    // this.http.get("https://reqres.in/api/users?page=2")
-  }
+  constructor(private modal: NgbModal) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -222,18 +161,12 @@ export class TaskComponent {
   }
 
   addEvent(): void {
-    console.log("here");
     this.events = [
       ...this.events,
       {
         title: 'New event',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        name: "New name",
-        location: "-",
-        duration: 60,
-        priority: 1,
-        status: false,
         color: colors.red,
         draggable: true,
         resizable: {
@@ -242,24 +175,6 @@ export class TaskComponent {
         },
       },
     ];
-  }
-
-
-  addTask(): void {
-    this.tasks = [
-      ...this.tasks,
-      {
-        name: 'New Task',
-        location: 'location',
-        duration: 60,
-        priority: 1,
-        status: false,
-      },
-    ];
-  }
-
-  deleteTask(eventToDelete: Task) {
-    this.tasks = this.tasks.filter((event) => event !== eventToDelete);
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
