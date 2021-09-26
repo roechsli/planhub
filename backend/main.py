@@ -16,7 +16,7 @@ from Google import Create_Service, convert_to_RFC_datetime
 from insert_delete_calendar import calendarservice, create_calendar, delete_calendar
 from change_calendar_color import get_color_profiles, change_color_profile
 from update_calendar import find_cal_summary, update_calendar
-from events_calendarAPI import create_event
+from events_calendarAPI import create_event, tasklist_calendar_scheduler
 
 
 # define Flask variables
@@ -47,6 +47,10 @@ def hello_world():
 
 @app.route("/users/<string:user_id>/sync")
 def sync_to_google_calendar(user_id: str):
+    file = get_user_tasks('usr_id')
+    file_dict = json.loads(file)
+
+    tasklist_calendar_scheduler(file_dict, get_user_name('usr_id'), service)
     return "<p>Not yet synced to google calendar for </p>" + user_id
 
 
@@ -86,7 +90,7 @@ def get_user_settings(user_id: str):
 @app.route("/users/<string:user_id>/tasks")
 def get_user_tasks(user_id: str):
     # query database for user_id
-    result = session.query(Task).filter((Task.user_id == user_id) | Task.guests == user_id)
+    result = session.query(Task).filter((Task.user_id == user_id) | (Task.guests == user_id))
     # TODO allow also several guests
     result = [item.json() for item in result]
     result = filter_tasks(result)
@@ -129,10 +133,6 @@ def get_user_name(user_id: str) -> str:
 
 if __name__ == '__main__':
     print('main')
-    create_calendar('PlanHubCalendar 2', service)
-    get_color_profiles(service)
-    myCalendar = find_cal_summary(service, 'PlanHubCalendar 2')
-    update_calendar(service, myCalendar, 'PlanHubCalendar 2', 'Alices Calendar', 'Zurich')
 
     file1 = get_user_tasks('1')
     file_dict1 = json.loads(file1)
@@ -140,31 +140,8 @@ if __name__ == '__main__':
     file2 = get_user_tasks('2')
     file_dict2 = json.loads(file2)
 
-    """
-    Create an event
-    """
 
-    hour_adjustment = 2
-    event_request_body = {
-        'start': {
-            'dateTime': convert_to_RFC_datetime(2021, 11, 1, 12 + hour_adjustment, 30),
-            'timeZone': 'GMT+2'
-        },
-        'end': {
-            'dateTime': convert_to_RFC_datetime(2021, 11, 1, 14 + hour_adjustment, 30),
-            'timeZone': 'GMT+2'
-        },
-        'summary': 'Finish Q3 report',
-        'description': 'lalala',
-        'colorId': 5,
-        'status': 'confirmed',
-        'transparency': 'opaque',
-        'visibility': 'private',
-        'location': 'Zurich, Zurich',
-        'recurrence': None
-    }
-    create_event(service, myCalendar, event_request_body)
-
-    print(get_user_name("1"))
+    tasklist_calendar_scheduler(file_dict1, get_user_name('1'), service)
+    tasklist_calendar_scheduler(file_dict2, get_user_name('2'), service)
 
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
