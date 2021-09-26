@@ -1,5 +1,6 @@
 import json
 import datetime
+import logging
 from datetime import timedelta
 
 from flask import Flask, request
@@ -16,8 +17,7 @@ from Google import Create_Service, convert_to_RFC_datetime
 from insert_delete_calendar import calendarservice, create_calendar, delete_calendar
 from change_calendar_color import get_color_profiles, change_color_profile
 from update_calendar import find_cal_summary, update_calendar
-from events_calendarAPI import create_event
-
+from events_calendarAPI import create_event, tasklist_calendar_scheduler
 
 # define Flask variables
 app = Flask(__name__)
@@ -25,7 +25,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # define database variables
-engine = create_engine(MYSQL_CONNECTION_STRING, echo = True)
+engine = create_engine(MYSQL_CONNECTION_STRING, echo=True)
 metadata = MetaData()
 metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
@@ -38,6 +38,9 @@ FLASK_DEBUG = True
 # define global google constants
 service = calendarservice()
 
+# Global logger
+logger = logging.getLogger(__name__)
+
 
 @cross_origin()
 @app.route("/")
@@ -48,6 +51,10 @@ def hello_world():
 @cross_origin()
 @app.route("/users/<string:user_id>/sync")
 def sync_to_google_calendar(user_id: str):
+    file = get_user_tasks('usr_id')
+    file_dict = json.loads(file)
+
+    tasklist_calendar_scheduler(file_dict, get_user_name('usr_id'), service)
     return "<p>Not yet synced to google calendar for </p>" + user_id
 
 
@@ -107,18 +114,21 @@ def filter_tasks(tasks: list):
 
         # convert this to datetime object
         f = '%Y-%m-%d %H:%M:%S'
-        filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f) if task["start_time"] is not None else None
+        filtered_task["start"]["dateTime"] = datetime.datetime.strptime(task["start_time"], f) if task[
+                                                                                                      "start_time"] is not None else None
         filtered_task["start"]["timeZone"] = "GMT+2"
         # calculate end-time
         filtered_task["duration_mins"] = task["duration"] * MINUTE_TIME_UNIT_MULTIPLIER[task["duration_unit"]]
         filtered_task["end"] = dict()
-        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=filtered_task["duration_mins"]) if task["start_time"] is not None and filtered_task["duration_mins"] is not None else None
+        filtered_task["end"]["dateTime"] = task["start_time"] + timedelta(minutes=filtered_task["duration_mins"]) if \
+        task["start_time"] is not None and filtered_task["duration_mins"] is not None else None
         filtered_task["end"]["timeZone"] = "GMT+2"
 
         filtered_task["summary"] = task["name"]
         filtered_task["description"] = task["description"]
         # only allow google visibility settings
-        filtered_task["visibility"] = task["visibility"] if task["visibility"] in ["private", "default", "public"] else None
+        filtered_task["visibility"] = task["visibility"] if task["visibility"] in ["private", "default",
+                                                                                   "public"] else None
         filtered_task["priority"] = task["priority"]
         filtered_task["location"] = task["location"]
         # TODO not implemented yet (join on recurrence table to get pattern)
@@ -126,6 +136,7 @@ def filter_tasks(tasks: list):
 
         return_tasks.append(filtered_task)
     return return_tasks
+
 
 def get_user_name(user_id: str) -> str:
     # query database for user_id
@@ -135,38 +146,14 @@ def get_user_name(user_id: str) -> str:
 
 if __name__ == '__main__':
     print('main')
-    create_calendar('PlanHubCalendar 2', service)
-    get_color_profiles(service)
-    myCalendar = find_cal_summary(service, 'PlanHubCalendar 2')
-    update_calendar(service, myCalendar, 'PlanHubCalendar 2', 'Alices Calendar', 'Zurich')
 
-    # file = get_user_tasks('1')
-    # file_dict = json.loads(file)
-    # print(file_dict)
+    file1 = get_user_tasks('1')
+    file_dict1 = json.loads(file1)
 
-    """
-    Create an event
-    """
+    file2 = get_user_tasks('2')
+    file_dict2 = json.loads(file2)
 
-    hour_adjustment = 2
-    event_request_body = {
-        'start': {
-            'dateTime': convert_to_RFC_datetime(2021, 11, 1, 12 + hour_adjustment, 30),
-            'timeZone': 'GMT+2'
-        },
-        'end': {
-            'dateTime': convert_to_RFC_datetime(2021, 11, 1, 14 + hour_adjustment, 30),
-            'timeZone': 'GMT+2'
-        },
-        'summary': 'Finish Q3 report',
-        'description': 'lalala',
-        'colorId': 5,
-        'status': 'confirmed',
-        'transparency': 'opaque',
-        'visibility': 'private',
-        'location': 'Zurich, Zurich',
-        'recurrence': None
-    }
-    create_event(service, myCalendar, event_request_body)
+    tasklist_calendar_scheduler(file_dict1, get_user_name('1'), service)
+    tasklist_calendar_scheduler(file_dict2, get_user_name('2'), service)
 
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)

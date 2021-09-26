@@ -1,6 +1,9 @@
 from pprint import pprint
+import logging
 from Google import Create_Service, convert_to_RFC_datetime
 
+
+logger = logging.getLogger(__name__)
 
 def calendarservice():
     CLIENT_SECRET_FILE = 'client_secret_GoogleCloudDemo.json'
@@ -19,13 +22,13 @@ def create_calendar(calendarname, service):
     myCalendar = filter(lambda x: calendarname in x['summary'], calendarItems)
     # pprint(response.get('items')[0])
     if not list(myCalendar):
-        print('Creating new calendar')
+        logger.info('Creating new calendar')
         request_body = {
             'summary': calendarname
         }
         # Create calendar
         response = service.calendars().insert(body=request_body).execute()
-        print(response)
+        logger.info(response)
 
 
 def delete_calendar(calendarId, service):
