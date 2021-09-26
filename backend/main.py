@@ -5,7 +5,7 @@ from datetime import timedelta
 import decimal
 
 from flask import Flask, request
-from flask_cors import CORS, cross_origin
+from flask_cors import qCORS, cross_origin
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 
