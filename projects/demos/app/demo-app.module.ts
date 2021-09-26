@@ -20,6 +20,8 @@ import { CompanyComponent } from './demo-modules/company-home/component';
 import { CompanyModule } from './demo-modules/company-home/module';
 import { ProfileComponent } from './demo-modules/profile/component';
 import { ProfileModule } from './demo-modules/profile/module';
+import { PlannerComponent } from './demo-modules/planner-component/component';
+import { PlannerModule } from './demo-modules/planner-component/module';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -44,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     TaskModule,
     EmptyModule,
     CompanyModule,
+    PlannerModule,
     ProfileModule,
     RouterModule.forRoot(
       [

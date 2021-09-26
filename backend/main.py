@@ -1,7 +1,8 @@
-import json
+import simplejson as json
 import datetime
 import logging
 from datetime import timedelta
+import decimal
 
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
@@ -51,10 +52,10 @@ def hello_world():
 @cross_origin()
 @app.route("/users/<string:user_id>/sync")
 def sync_to_google_calendar(user_id: str):
-    file = get_user_tasks('usr_id')
+    file = get_user_tasks(user_id)
     file_dict = json.loads(file)
 
-    tasklist_calendar_scheduler(file_dict, get_user_name('usr_id'), service)
+    tasklist_calendar_scheduler(file_dict, get_user_name(user_id), service)
     return "<p>Not yet synced to google calendar for </p>" + user_id
 
 
@@ -68,7 +69,7 @@ def get_or_add_new_task(task_id: str):
     else:
         # get task
         result = session.query(Task).filter_by(id=task_id)
-        return json.dumps([item.json() for item in result])
+        return json.dumps([item.json() for item in result], cls=DecimalEncoder)
 
 
 @cross_origin()
@@ -76,7 +77,7 @@ def get_or_add_new_task(task_id: str):
 def get_user(user_id: str):
     # query database for user_id
     result = session.query(User).filter_by(id=user_id)
-    return json.dumps([item.json() for item in result])
+    return json.dumps([item.json() for item in result], cls=DecimalEncoder)
 
 
 @cross_origin()
@@ -84,7 +85,7 @@ def get_user(user_id: str):
 def get_settings(setting_id: str):
     # query database for setting_id
     result = session.query(Settings).filter_by(id=setting_id)
-    return json.dumps([item.json() for item in result])
+    return json.dumps([item.json() for item in result], cls=DecimalEncoder)
 
 
 @cross_origin()
@@ -92,10 +93,10 @@ def get_settings(setting_id: str):
 def get_user_settings(user_id: str):
     # query database for user_id
     result = session.query(Settings).filter_by(user_id=user_id)
-    return json.dumps([item.json() for item in result])
+    return json.dumps([item.json() for item in result], cls=DecimalEncoder)
 
 
-@cross_origin()
+
 @app.route("/users/<string:user_id>/tasks")
 def get_user_tasks(user_id: str):
     # query database for user_id
@@ -103,7 +104,7 @@ def get_user_tasks(user_id: str):
     # TODO allow also several guests
     result = [item.json() for item in result]
     result = filter_tasks(result)
-    return json.dumps(result)
+    return json.dumps(result, iterable_as_array=True)
 
 
 def filter_tasks(tasks: list):
@@ -141,19 +142,28 @@ def filter_tasks(tasks: list):
 def get_user_name(user_id: str) -> str:
     # query database for user_id
     result = session.query(User).filter((User.id == user_id)).one()
-    return result.first_name + " " + result.last_name
+    if result is not None:
+        return result.first_name + " " + result.last_name
+    return ""
+
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            # wanted a simple yield str(o) in the next line,
+            # but that would mean a yield on the line with super(...),
+            # which wouldn't work (see my comment below), so...
+            return (str(o) for o in [o])
+        return super(DecimalEncoder, self).default(o)
 
 
 if __name__ == '__main__':
-    print('main')
+    # file1 = get_user_tasks('1')
+    # file_dict1 = json.loads(file1)
 
-    file1 = get_user_tasks('1')
-    file_dict1 = json.loads(file1)
+    # file2 = get_user_tasks('2')
+    # file_dict2 = json.loads(file2)
 
-    file2 = get_user_tasks('2')
-    file_dict2 = json.loads(file2)
-
-    tasklist_calendar_scheduler(file_dict1, get_user_name('1'), service)
-    tasklist_calendar_scheduler(file_dict2, get_user_name('2'), service)
+    # tasklist_calendar_scheduler(file_dict1, get_user_name('1'), service)
+    # tasklist_calendar_scheduler(file_dict2, get_user_name('2'), service)
 
     app.run(host='0.0.0.0', port=PORT, debug=FLASK_DEBUG)
