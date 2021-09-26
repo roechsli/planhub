@@ -1,5 +1,9 @@
 <h1 align="center">PlanHub - Hack Zürich</h1>
 
+
+<div align="center">
+  <a href="https://youtu.be/vtcxTMx-acM">Watch the Presentation and Tech Demo</a>
+
 <h2 align="center">About</h2>
 
 A smart meeting planning and organization tool to help navigate in a hybrid work environment.
