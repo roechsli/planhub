@@ -52,11 +52,12 @@ def hello_world():
 @cross_origin()
 @app.route("/users/<string:user_id>/sync")
 def sync_to_google_calendar(user_id: str):
-    file = get_user_tasks(user_id)
-    file_dict = json.loads(file)
+    tasks = get_user_tasks(user_id)
+    name = get_user_name(user_id)
+    file_dict = json.loads(tasks)
 
     tasklist_calendar_scheduler(file_dict, get_user_name(user_id), service)
-    return "<p>Not yet synced to google calendar for </p>" + user_id
+    return "<p>Tasks are now synced to google calendar for </p>" + name
 
 
 @cross_origin()

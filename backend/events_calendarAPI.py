@@ -44,7 +44,7 @@ def tasklist_calendar_scheduler(dictionary_list, usr_name, service):
             11, 7, 8, 9, 17, 12, 13, 16
         ]
         starting_minutes = [
-            0, 30, 0, 0, 0, 0, 0, 0
+            0, 0, 0, 0, 0, 0, 0, 0
         ]
         for idx, dicts in enumerate(dictionary_list):
             print(dicts)
@@ -77,7 +77,7 @@ def tasklist_calendar_scheduler(dictionary_list, usr_name, service):
             8, 9, 10, 12, 14, 15, 17
         ]
         starting_minutes = [
-            0, 0, 0, 0, 30, 0, 0
+            0, 0, 0, 0, 0, 0, 0
         ]
         for idx, dicts in enumerate(dictionary_list):
             print(dicts)
