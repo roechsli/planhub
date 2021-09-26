@@ -46,10 +46,10 @@ def hello_world():
 
 @app.route("/users/<string:user_id>/sync")
 def sync_to_google_calendar(user_id: str):
-    file = get_user_tasks('usr_id')
+    file = get_user_tasks(user_id)
     file_dict = json.loads(file)
 
-    tasklist_calendar_scheduler(file_dict, get_user_name('usr_id'), service)
+    tasklist_calendar_scheduler(file_dict, get_user_name(user_id), service)
     return "<p>Not yet synced to google calendar for </p>" + user_id
 
 
