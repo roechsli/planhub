@@ -3,6 +3,7 @@ import datetime
 from datetime import timedelta
 
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 
@@ -20,6 +21,8 @@ from events_calendarAPI import create_event
 
 # define Flask variables
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # define database variables
 engine = create_engine(MYSQL_CONNECTION_STRING, echo = True)
@@ -36,16 +39,19 @@ FLASK_DEBUG = True
 service = calendarservice()
 
 
+@cross_origin()
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
 
 
+@cross_origin()
 @app.route("/users/<string:user_id>/sync")
 def sync_to_google_calendar(user_id: str):
     return "<p>Not yet synced to google calendar for </p>" + user_id
 
 
+@cross_origin()
 @app.route("/tasks/<string:task_id>", methods=["POST", "GET"])
 def get_or_add_new_task(task_id: str):
     if request.method == 'POST':
@@ -58,6 +64,7 @@ def get_or_add_new_task(task_id: str):
         return json.dumps([item.json() for item in result])
 
 
+@cross_origin()
 @app.route("/users/<string:user_id>")
 def get_user(user_id: str):
     # query database for user_id
@@ -65,6 +72,7 @@ def get_user(user_id: str):
     return json.dumps([item.json() for item in result])
 
 
+@cross_origin()
 @app.route("/settings/<string:setting_id>")
 def get_settings(setting_id: str):
     # query database for setting_id
@@ -72,6 +80,7 @@ def get_settings(setting_id: str):
     return json.dumps([item.json() for item in result])
 
 
+@cross_origin()
 @app.route("/users/<string:user_id>/settings")
 def get_user_settings(user_id: str):
     # query database for user_id
@@ -79,10 +88,11 @@ def get_user_settings(user_id: str):
     return json.dumps([item.json() for item in result])
 
 
+@cross_origin()
 @app.route("/users/<string:user_id>/tasks")
 def get_user_tasks(user_id: str):
     # query database for user_id
-    result = session.query(Task).filter((Task.user_id == user_id) | Task.guests == user_id)
+    result = session.query(Task).filter((Task.user_id == user_id) | (Task.guests == user_id))
     # TODO allow also several guests
     result = [item.json() for item in result]
     result = filter_tasks(result)
@@ -130,9 +140,9 @@ if __name__ == '__main__':
     myCalendar = find_cal_summary(service, 'PlanHubCalendar 2')
     update_calendar(service, myCalendar, 'PlanHubCalendar 2', 'Alices Calendar', 'Zurich')
 
-    file = get_user_tasks('1')
-    file_dict = json.loads(file)
-    print(file_dict)
+    # file = get_user_tasks('1')
+    # file_dict = json.loads(file)
+    # print(file_dict)
 
     """
     Create an event

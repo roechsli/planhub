@@ -8,117 +8,109 @@
 </ng-template>
 
 <div class="container-fluid">
-  <div class="row fill-height">
-    <div class="col-md-9 col-xl-10 fill-height scroll-y" mwlDraggableScrollContainer>
-      <div class="card" *ngIf="firstDemoLoaded; else loading">
-        
-        <div >
-          <ngb-tabset [destroyOnHide]="false">
-            <ngb-tab>
-              <ng-template ngbTabTitle >
-                <!-- <div class="col-md-2"> -->
-                  <div>
-                    <img src="./assets/logo_smaller.png" alt="App logo">
+  <div class="center">
+
+    <div class="row fill-height">
+      <div class="fill-height scroll-y" mwlDraggableScrollContainer>
+        <div class="card" *ngIf="firstDemoLoaded; else loading">
+          
+          <div >
+            <ngb-tabset [destroyOnHide]="false" activeId="calendar">
+              <ngb-tab>
+                <ng-template ngbTabTitle >
+                    <div>
+                      <img src="./assets/logo_smaller.png" alt="App logo">
+                    </div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="spacer-top">
+                    <company-component></company-component>
                   </div>
-                <!-- </div> -->
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="spacer-top">
-                  <company-component></company-component>
-                </div>
-              </ng-template>
-            </ngb-tab>
-
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="fas fa-fw fa-calendar"></i> Calendar
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="spacer-top">
-                  <router-outlet></router-outlet>
-                </div>
-              </ng-template>
-            </ngb-tab>
-
-
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="fas fa-fw fa-tasks"></i> Tasks
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="spacer-top">
-                  <tasks-component></tasks-component>
-                </div>
-              </ng-template>
-            </ngb-tab>
-
-
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="fas fa-fw fa-history"></i> Milestones
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="spacer-top">
-                  <empty-component></empty-component>
-                </div>
-              </ng-template>
-            </ngb-tab>
-
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="fas fa-fw fa-cog"></i> Planner
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="spacer-top">
-                  <empty-component></empty-component>
-                </div>
-              </ng-template>
-            </ngb-tab>
-
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="fas fa-fw fa-info"></i> Policy
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="spacer-top">
-                  <empty-component></empty-component>
-                </div>
-              </ng-template>
-            </ngb-tab>
-            
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="fas fa-fw fa-info"></i> Profile
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="spacer-top">
-                  <profile-component></profile-component>
-                </div>
-              </ng-template>
-            </ngb-tab>
-
-          </ngb-tabset>
+                </ng-template>
+              </ngb-tab>
+  
+              <ngb-tab id="calendar">
+                <ng-template ngbTabTitle>
+                  <i class="fas fa-fw fa-calendar"></i> Calendar
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="spacer-top">
+                    <router-outlet></router-outlet>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+  
+  
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <i class="fas fa-fw fa-tasks"></i> Tasks
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="spacer-top">
+                    <tasks-component></tasks-component>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+  
+  
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <i class="fas fa-fw fa-history"></i> Milestones
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="spacer-top">
+                    <empty-component></empty-component>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+  
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <i class="fas fa-fw fa-cog"></i> Planner
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="spacer-top">
+                    <empty-component></empty-component>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+  
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <i class="fas fa-fw fa-info"></i> Policy
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="spacer-top">
+                    <empty-component></empty-component>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              
+              <ngb-tab justify="end">
+                <ng-template ngbTabTitle>
+                  <div>
+                    <img src="./assets/charlie-round.png" alt="profile">
+                  </div>
+                   Charlie Hatbot
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="spacer-top">
+                    <profile-component></profile-component>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+  
+            </ngb-tabset>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="col-md-3 col-xl-2 fill-height sidebar-nav scroll-y">
-      <input type="search" class="form-control" placeholder="Search demos..." [(ngModel)]="searchText"
-        (ngModelChange)="updateFilteredDemos()" />
-      <ul class="list-unstyled spacer-top">
-        <li *ngFor="let demo of filteredDemos">
-          <a [routerLink]="[demo.path]" [class.active]="activeDemo?.path === demo.path">
-            {{ demo.label }}
-          </a>
-        </li>
-      </ul>
-      <em *ngIf="filteredDemos.length === 0">No matching demos found</em>
-
-      <div class="action_buttons">
-
-
+  
+      
+      <!-- <div class="action_buttons">
+  
+  
         <div style="display: flex;">
-
+  
           <div class="align-left">
             <p>Google Cloud</p>
           </div>
@@ -128,21 +120,22 @@
             </button>
           </div>
         </div>
-
+  
         <div style="display: flex;">
-
+  
           <div class="align-left">
             <p>Export Calendar as Link</p>
           </div>
           <div class="align-right">
-
+  
             <button class="btn btn-info float-right" (click)="exportAsLink(activeDemo)">
               <i class="fas fa-share"></i> Share
             </button>
           </div>
         </div>
-      </div>
-
+      </div> -->
+  
+  
     </div>
   </div>
 </div>

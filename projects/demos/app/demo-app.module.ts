@@ -23,6 +23,7 @@ import { ProfileModule } from './demo-modules/profile/module';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [DemoAppComponent],
@@ -34,6 +35,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     NgbCollapseModule,
     NgbTooltipModule,
     DragAndDropModule,
+    HttpClientModule,
     Angulartics2Module.forRoot({
       developerMode: !environment.production,
     }),

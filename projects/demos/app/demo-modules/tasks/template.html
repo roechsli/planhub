@@ -2,9 +2,12 @@
 <br /><br /><br />
 
 <h3>
-  Edit events
-  <button class="btn btn-primary float-right" (click)="addEvent()">
+  Edit tasks
+  <button class="btn btn-primary float-right mr-2" (click)="addEvent()">
     Add new
+  </button>
+  <button class="btn btn-primary float-right mr-2" (click)="syncTasks()">
+    Sync
   </button>
   <div class="clearfix"></div>
 </h3>
@@ -13,14 +16,15 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Primary color</th>
-        <th>Secondary color</th>
-        <th>Starts at</th>
-        <th>Ends at</th>
+        <th>Task</th>
+        <th>Location</th>
+        <th>Duration</th>
+        <th>Priority</th>
+        <th>Status</th>
         <th>Remove</th>
       </tr>
     </thead>
+
 
     <tbody>
       <tr *ngFor="let event of events">
@@ -28,52 +32,43 @@
           <input
             type="text"
             class="form-control"
-            [(ngModel)]="event.title"
+            [(ngModel)]="event.name"
             (keyup)="refresh.next()"
           />
         </td>
         <td>
           <input
-            type="color"
-            [(ngModel)]="event.color.primary"
-            (change)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            type="color"
-            [(ngModel)]="event.color.secondary"
-            (change)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            class="form-control"
             type="text"
-            mwlFlatpickr
-            [(ngModel)]="event.start"
-            (ngModelChange)="refresh.next()"
-            [altInput]="true"
-            [convertModelValue]="true"
-            [enableTime]="true"
-            dateFormat="Y-m-dTH:i"
-            altFormat="F j, Y H:i"
-            placeholder="Not set"
+            class="form-control"
+            [(ngModel)]="event.location"
+            (keyup)="refresh.next()"
+          />
+        </td>
+        <td>
+            <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="event.duration"
+            (keyup)="refresh.next()"
+            size="5"
           />
         </td>
         <td>
           <input
-            class="form-control"
             type="text"
-            mwlFlatpickr
-            [(ngModel)]="event.end"
-            (ngModelChange)="refresh.next()"
-            [altInput]="true"
-            [convertModelValue]="true"
-            [enableTime]="true"
-            dateFormat="Y-m-dTH:i"
-            altFormat="F j, Y H:i"
-            placeholder="Not set"
+            class="form-control"
+            [(ngModel)]="event.priority"
+            (keyup)="refresh.next()"
+            size="2"
+            maxlength="1"
+          />
+        </td>
+        <td>
+          <input
+            type="checkbox"
+            class="w3-check"
+            [(ngModel)]="event.status"
+            (keyup)="refresh.next()"
           />
         </td>
         <td>
@@ -88,7 +83,7 @@
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
-    <h5 class="modal-title">Event action occurred</h5>
+    <h5 class="modal-title">task action occurred</h5>
     <button type="button" class="close" (click)="close()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -99,7 +94,7 @@
       <pre>{{ modalData?.action }}</pre>
     </div>
     <div>
-      Event:
+      task:
       <pre>{{ modalData?.event | json }}</pre>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { CalendarEvent } from 'calendar-utils';
+import { CalendarEvent, Task } from 'calendar-utils';
 
 export enum CalendarEventTimesChangedEventType {
   Drag = 'drag',
