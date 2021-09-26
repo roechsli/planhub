@@ -14,8 +14,7 @@
 <h2 align="center">Demo</h2>
 
 <div align="center">
-<a href="https://github.com/sponsors/mattlewis92">Become a silver or gold sponsor<a> and get your logo on this README on Github with a link to your site.
-</div>
+  <a href="https://youtu.be/vtcxTMx-acM">Watch the Presentation and Tech Demo</a>
 
 ## Table of contents
 
