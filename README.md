@@ -21,6 +21,8 @@ This is based on the calendar component for Angular 6.0+ that can display events
 ![Alt text](doc/planner_view.png "Planner View Outlook")
 
 
+
+
 <h2 align="center">Set up</h2>
 
 ## Install dependencies
